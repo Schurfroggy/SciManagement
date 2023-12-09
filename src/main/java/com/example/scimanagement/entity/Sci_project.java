@@ -6,13 +6,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @TableName("sci_project")
 public class Sci_project {
     @TableId(value ="sci_project_id",type = IdType.AUTO)
-    private Integer id;
+    private Integer sci_project_id;
 
     @TableField
     private Integer client_id;
@@ -32,7 +32,10 @@ public class Sci_project {
     @TableField
     private double fund;
 
-    @TableField
-    private Date start_time;
+    @TableField("start_date")
+    private Date start_date;
+
+    @TableField("end_date")
+    private Date end_date;
 
 }

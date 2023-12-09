@@ -10,7 +10,7 @@ import lombok.Data;
 public class lab {
 
     @TableId(value ="lab_id",type = IdType.AUTO)
-    private Integer id;
+    private Integer lab_id;
 
     @TableField("name")
     private String name;

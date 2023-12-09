@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.util.Date;
+import java.sql.Date;
 
 @Data
 @TableName("sub_project")
@@ -24,4 +24,7 @@ public class sub_project {
 
     @TableField("fund")
     private double fund;
+
+    @TableField("tech_indicator")
+    private String tech_indicator;
 }

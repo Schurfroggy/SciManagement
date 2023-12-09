@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @TableName("partner")
 public class partner {
@@ -20,5 +22,11 @@ public class partner {
 
     @TableField("head_id")
     private Integer head_id;
+
+    @TableField(exist = false)
+    private heads head;
+
+    @TableField(exist = false)
+    private List<links> links;
 }
 

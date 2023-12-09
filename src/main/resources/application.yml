@@ -8,15 +8,17 @@ spring:
     username: root
     password: 123456
     driver-class-name: com.mysql.jdbc.Driver
-  data:
-    redis:
-      database: 0
-      port: 6379
-      host: 8.134.129.167
-      lettuce:
-        pool:
-          max-active: 10
-          max-idle: 10
-          min-idle: 1
-mybatis:
+  redis:
+    port: 6379
+    database: 0
+    host: 8.134.129.167
+    lettuce:
+       pool:
+         max-active: 10
+         max-idle: 10
+         min-idle: 1
+mybatis-plus:
   type-aliases-package: com.sci.entity
+  mapper-locations: classpath:mapper/**/*.xml
+  configuration:
+    map-underscore-to-camel-case: false

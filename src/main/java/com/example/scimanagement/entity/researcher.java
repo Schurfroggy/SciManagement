@@ -12,6 +12,9 @@ public class researcher {
     @TableId(value ="researcher_id",type = IdType.AUTO)
     private Integer researcher_id;
 
+    @TableField("lab_id")
+    private Integer lab_id;
+
     @TableField("name")
     private String name;
 
@@ -19,7 +22,7 @@ public class researcher {
     private Integer sub_project_id;
 
     @TableField
-    private boolean gender;
+    private String gender;
 
     @TableField
     private int age;

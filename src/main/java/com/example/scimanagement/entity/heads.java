@@ -15,10 +15,10 @@ public class heads {
     private String name;
 
     @TableField("office_number")
-    private long office_number;
+    private String office_number;
 
     @TableField("mobile_number")
-    private long mobile_number;
+    private String mobile_number;
 
     @TableField("email_address")
     private String email_address;

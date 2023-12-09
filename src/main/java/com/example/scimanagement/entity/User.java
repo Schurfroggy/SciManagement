@@ -16,7 +16,10 @@ public class User implements Serializable {
     private Integer id;
 
     @TableField
-    private long phone_number;
+    private String name;
+
+    @TableField
+    private String phone_number;
 
     @TableField
     private String password;

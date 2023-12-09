@@ -9,26 +9,23 @@ import lombok.Data;
 import java.sql.Date;
 
 @Data
-@TableName("secretary")
-public class secretary {
-    @TableId(value ="secretary_id",type = IdType.AUTO)
-    private Integer secretary_id;
+@TableName("director")
+public class director {
+    @TableId(value ="director_id",type = IdType.AUTO)
+    private Integer director_id;
+
+    @TableField("researcher_id")
+    private Integer researcher_id;
 
     @TableField("lab_id")
     private Integer lab_id;
 
-    @TableField("name")
-    private String name;
-
-    @TableField("gender")
-    private String gender;
-
-    @TableField("age")
-    private Integer age;
-
-    @TableField("employ_date")
+    @TableField("date")
     private Date employ_date;
 
-    @TableField("work")
-    private String work;
+    @TableField("tenure")
+    private String tenure;
+
+    @TableField(exist = false)
+    private researcher researcherDetail;
 }

@@ -9,7 +9,7 @@ import lombok.Data;
 @TableName("links")
 public class links {
     @TableId(value ="link_id",type = IdType.AUTO)
-    private Integer head_id;
+    private Integer link_id;
 
     @TableField("name")
     private String name;

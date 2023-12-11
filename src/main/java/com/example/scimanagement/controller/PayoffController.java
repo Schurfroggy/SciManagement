@@ -1,4 +1,4 @@
 package com.example.scimanagement.controller;
 
-public class officeController {
+public class PayoffController {
 }

@@ -133,4 +133,16 @@ public class ClientServiceImpl extends ServiceImpl<clientMapper, client> impleme
         updateById(client);
         return Result.ok(WarningMsg);
     }
+
+    @Override
+    public Result queryClientByName(String name) {
+        QueryWrapper<client> queryWrapper = new QueryWrapper<client>()
+                .select("*")
+                .like("name",name);
+        List<client> clientList = list(queryWrapper);
+        if(clientList.isEmpty())
+            return Result.fail("No such client");
+        else
+            return Result.ok((List<?>) clientList,(long)clientList.size());
+    }
 }

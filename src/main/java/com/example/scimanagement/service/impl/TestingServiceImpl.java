@@ -127,4 +127,16 @@ public class TestingServiceImpl extends ServiceImpl<testingMapper, testing> impl
         updateById(testing);
         return Result.ok(WarningMsg);
     }
+
+    @Override
+    public Result queryTestingByName(String name) {
+        QueryWrapper<testing> queryWrapper = new QueryWrapper<testing>()
+                .select("*")
+                .like("name",name);
+        List<testing> testingList = list(queryWrapper);
+        if(testingList.isEmpty())
+            return Result.fail("No such testing");
+        else
+            return Result.ok((List<?>) testingList,(long)testingList.size());
+    }
 }

@@ -12,4 +12,6 @@ public interface IClientService extends IService<client> {
     Result save(int id, String name, String address, int headId, List<Integer> links);
 
     Result update(int id, String name, String address, int headId, List<Integer> links);
+
+    Result queryClientByName(String name);
 }

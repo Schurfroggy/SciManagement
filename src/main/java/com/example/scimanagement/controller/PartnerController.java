@@ -47,4 +47,9 @@ public class PartnerController {
                                @RequestParam(value = "links") List<Integer> links){
         return partnerService.update(id,name,address,head_id,links);
     }
+
+    @GetMapping("/searchByName")
+    public Result queryPartnerByName(@Param("name") String name){
+        return partnerService.queryPartnerByName(name);
+    }
 }

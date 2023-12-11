@@ -17,4 +17,10 @@ public interface ISci_projectService extends IService<Sci_project> {
     Result queryProjectByName(String name);
 
     Result queryProjectByContent(String content);
+
+    Result saveSubProject(int sciProjectId, int subProjectId, String headName, int sequenceId, Date deadline, double fund, String techIndicator);
+
+    Result updateSubProject(int sciProjectId, int subProjectId, String headName, int sequenceId, Date deadline, double fund, String techIndicator);
+
+    Result removeSubProject(int sciProjectId, int subProjectId);
 }

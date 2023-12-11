@@ -49,5 +49,10 @@ public class ClientController {
         return clientService.update(id,name,address,head_id,links);
     }
 
+    @GetMapping("/searchByName")
+    public Result queryClientByName(@Param("name") String name){
+        return clientService.queryClientByName(name);
+    }
+
 
 }

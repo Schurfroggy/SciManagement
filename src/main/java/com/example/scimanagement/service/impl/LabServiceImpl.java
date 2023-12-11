@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.scimanagement.dto.LabDetail;
 import com.example.scimanagement.dto.Result;
 import com.example.scimanagement.entity.*;
+import com.example.scimanagement.entity.subentity.client2link;
 import com.example.scimanagement.entity.subentity.lab2office;
 import com.example.scimanagement.mapper.labMapper;
 import com.example.scimanagement.mapper.lab2officeMapper;
@@ -85,7 +86,7 @@ public class LabServiceImpl extends ServiceImpl<labMapper, lab> implements ILabS
     }
 
     @Override
-    public Result update(int id, String name, String introduction, int directorId, int secretaryId) {
+    public Result update(int id, String name, String introduction, int directorId, int secretaryId,List<Integer> officeIdList) {
         StringBuilder WarningMsg = new StringBuilder();
         lab labDTO = getById(id);
         labDTO.setName(name);
@@ -140,6 +141,25 @@ public class LabServiceImpl extends ServiceImpl<labMapper, lab> implements ILabS
             secretaryDTO.setLab_id(id);
             secretaryMapper.updateById(secretaryDTO);
         }
+        //3.更新office
+        QueryWrapper<lab2office> queryWrapper=new QueryWrapper<lab2office>()
+                .eq("lab_id",id);
+        lab2officeMapper.delete(queryWrapper);
+        boolean errorflag=false;
+        for(int officeId:officeIdList){
+            if(officeMapper.selectById(officeId)==null){
+                errorflag=true;
+            }
+            else{
+                lab2office lab2office=new lab2office();
+                lab2office.setLab_id(id);
+                lab2office.setOffice_id(officeId);
+                lab2officeMapper.insert(lab2office);
+            }
+        }
+        if(errorflag){
+            WarningMsg.append("Element(s) of office list is invalid. Filtered. ");
+        }
         updateById(labDTO);
         if(WarningMsg.length()>0)
             return Result.ok(WarningMsg.toString());
@@ -147,7 +167,7 @@ public class LabServiceImpl extends ServiceImpl<labMapper, lab> implements ILabS
     }
 
     @Override
-    public Result save(int labId, String name, String introduction, int directorId, int secretaryId) {
+    public Result save(int labId, String name, String introduction, int directorId, int secretaryId, List<Integer> officeIdList) {
         StringBuilder WarningMsg = new StringBuilder();
         lab labDTO = new lab();
         labDTO.setName(name);
@@ -164,7 +184,7 @@ public class LabServiceImpl extends ServiceImpl<labMapper, lab> implements ILabS
         save(labDTO);
         lab labDTO_ = queryLabByNameOne(name);
         //直接调用update触发director和secretary更新
-        Result result=update(labDTO_.getLab_id(),name,introduction,directorId,secretaryId);
+        Result result=update(labDTO_.getLab_id(),name,introduction,directorId,secretaryId,officeIdList);
         WarningMsg.append(result.getMsg());
         return Result.ok(WarningMsg.toString());
     }

@@ -12,4 +12,6 @@ public interface IPartnerService extends IService<partner> {
     Result save(int id, String name, String address, int headId, List<Integer> links);
 
     Result update(int id, String name, String address, int headId, List<Integer> links);
+
+    Result queryPartnerByName(String name);
 }

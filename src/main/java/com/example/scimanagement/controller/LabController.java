@@ -21,8 +21,9 @@ public class LabController {
                          @Param("name") String name,
                          @Param("introduction") String introduction,
                          @Param("director_id") int director_id,
-                         @Param("secretary_id") int secretary_id){
-        return labService.save(lab_id,name,introduction,director_id,secretary_id);
+                         @Param("secretary_id") int secretary_id,
+                         @RequestParam(value = "offices") List<Integer> offices){
+        return labService.save(lab_id,name,introduction,director_id,secretary_id,offices);
     }
 
     @DeleteMapping("/{id}")
@@ -36,8 +37,9 @@ public class LabController {
                             @Param("name") String name,
                             @Param("introduction") String introduction,
                             @Param("director_id") int director_id,
-                            @Param("secretary_id") int secretary_id){
-        return labService.update(lab_id,name,introduction,director_id,secretary_id);
+                            @Param("secretary_id") int secretary_id,
+                            @RequestParam(value = "offices") List<Integer> offices){
+        return labService.update(lab_id,name,introduction,director_id,secretary_id,offices);
     }
 
     @GetMapping ("/{id}")

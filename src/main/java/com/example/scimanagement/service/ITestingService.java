@@ -12,4 +12,6 @@ public interface ITestingService extends IService<testing> {
     Result save(int id, String name, String address, int headId, List<Integer> links);
 
     Result update(int id, String name, String address, int headId, List<Integer> links);
+
+    Result queryTestingByName(String name);
 }

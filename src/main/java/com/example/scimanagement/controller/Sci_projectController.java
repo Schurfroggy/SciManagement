@@ -68,5 +68,33 @@ public class Sci_projectController {
         return ISci_projectService.queryProjectByContent(content);
     }
 
+    @PostMapping("/addSub")
+    public Result addSubProject(@Param("sci_project_id") int sci_project_id,
+                         @Param("sub_project_id") int sub_project_id,
+                         @Param("head_name") String head_name,
+                         @Param("sequence_id") int sequence_id,
+                         @Param("deadline") Date deadline,
+                         @Param("fund") double fund,
+                         @Param("tech_indicator") String tech_indicator){
+        return ISci_projectService.saveSubProject(sci_project_id,sub_project_id,head_name,sequence_id,deadline,fund,tech_indicator);
+    }
+
+    @PutMapping("/updateSub")
+    public Result updateSubProject(@Param("sci_project_id") int sci_project_id,
+                            @Param("sub_project_id") int sub_project_id,
+                            @Param("head_name") String head_name,
+                            @Param("sequence_id") int sequence_id,
+                            @Param("deadline") Date deadline,
+                            @Param("fund") double fund,
+                            @Param("tech_indicator") String tech_indicator){
+        return ISci_projectService.updateSubProject(sci_project_id,sub_project_id,head_name,sequence_id,deadline,fund,tech_indicator);
+    }
+
+    @DeleteMapping("/deleteSub")
+    public Result deleteSubProject(@Param("sci_project_id") int sci_project_id,
+                            @Param("sub_project_id") int sub_project_id){
+        return ISci_projectService.removeSubProject(sci_project_id,sub_project_id);
+    }
+
 
 }

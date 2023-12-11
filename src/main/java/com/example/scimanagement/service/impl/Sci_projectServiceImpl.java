@@ -185,6 +185,62 @@ public class Sci_projectServiceImpl extends ServiceImpl<sci_projectMapper, Sci_p
             return Result.ok((List<?>) ProjectList,(long)ProjectList.size());
     }
 
+    @Override
+    public Result saveSubProject(int sciProjectId, int subProjectId, String headName, int sequenceId, Date deadline, double fund, String techIndicator) {
+        sub_project sub_project = new sub_project();
+        project2sub project2sub = new project2sub();
+        //1.先插入中间表
+        if(project2subMapper.selectById(sciProjectId)!=null){
+            project2sub.setSub_project_id(null);
+            sub_project.setSub_project_id(null);
+        }
+        else{
+            project2sub.setSub_project_id(subProjectId);
+            sub_project.setSub_project_id(subProjectId);
+        }
+        project2sub.setSci_project_id(sciProjectId);
+        project2subMapper.insert(project2sub);
+        //2.再插入子项目表
+        sub_project.setHead_name(headName);
+        sub_project.setSequence_id(sequenceId);
+        sub_project.setDeadline(deadline);
+        sub_project.setFund(fund);
+        sub_project.setTech_indicator(techIndicator);
+        sub_projectMapper.insert(sub_project);
+        return Result.ok();
+    }
+
+    @Override
+    public Result updateSubProject(int sciProjectId, int subProjectId, String headName, int sequenceId, Date deadline, double fund, String techIndicator) {
+        sub_project sub_project = new sub_project();
+        project2sub project2sub = new project2sub();
+        //1.先插入中间表
+        QueryWrapper<project2sub> queryWrapper = new QueryWrapper<project2sub>()
+               .eq("sub_project_id", sciProjectId);
+        project2subMapper.delete(queryWrapper);
+        project2sub.setSub_project_id(subProjectId);
+        project2sub.setSci_project_id(sciProjectId);
+        project2subMapper.insert(project2sub);
+        //2.再插入子项目表
+        sub_project.setSub_project_id(subProjectId);
+        sub_project.setHead_name(headName);
+        sub_project.setSequence_id(sequenceId);
+        sub_project.setDeadline(deadline);
+        sub_project.setFund(fund);
+        sub_project.setTech_indicator(techIndicator);
+        sub_projectMapper.updateById(sub_project);
+        return Result.ok();
+    }
+
+    @Override
+    public Result removeSubProject(int sciProjectId, int subProjectId) {
+        QueryWrapper<project2sub> queryWrapper = new QueryWrapper<project2sub>()
+                .eq("sub_project_id", sciProjectId);
+        project2subMapper.delete(queryWrapper);
+        sub_projectMapper.deleteById(subProjectId);
+        return Result.ok();
+    }
+
 
 }
 

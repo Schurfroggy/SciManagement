@@ -47,4 +47,9 @@ public class TestingController {
                                @RequestParam(value = "links") List<Integer> links){
         return testingService.update(id,name,address,head_id,links);
     }
+
+    @GetMapping("/searchByName")
+    public Result queryTestingByName(@Param("name") String name){
+        return testingService.queryTestingByName(name);
+    }
 }

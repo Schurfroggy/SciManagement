@@ -129,4 +129,16 @@ public class PartnerServiceImpl extends ServiceImpl<partnerMapper, partner> impl
         updateById(partner);
         return Result.ok(WarningMsg);
     }
+
+    @Override
+    public Result queryPartnerByName(String name) {
+        QueryWrapper<partner> queryWrapper = new QueryWrapper<partner>()
+                .select("*")
+                .like("name",name);
+        List<partner> partnerList = list(queryWrapper);
+        if(partnerList.isEmpty())
+            return Result.fail("No such partner");
+        else
+            return Result.ok((List<?>) partnerList,(long)partnerList.size());
+    }
 }

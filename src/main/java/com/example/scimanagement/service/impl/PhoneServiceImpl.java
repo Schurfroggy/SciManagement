@@ -51,5 +51,6 @@ public class PhoneServiceImpl implements IPhoneService {
         for(heads head:heads)
             contactDTOS.add(new ContactDTO(head));
         return Result.ok(contactDTOS,(long)contactDTOS.size());
+
     }
 }

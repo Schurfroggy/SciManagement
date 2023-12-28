@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
     @Resource
     private IUserService userService;
-
     @PostMapping("/login")
     public Result login(@RequestBody LoginFormDTO loginForm) {
         return userService.login(loginForm);
@@ -38,5 +38,9 @@ public class UserController {
         return Result.ok();
     }
 
-
+    @GetMapping("/getAll")
+    public Result getAll() {
+        //TODO
+        return Result.ok(userService.list());
+    }
 }

@@ -137,15 +137,15 @@ public class Sci_projectServiceImpl extends ServiceImpl<sci_projectMapper, Sci_p
     @Override
     public Result update(int sciProjectId, int clientId, int testingId, String headName, String name, String content, double fund, Date startDate, Date endDate) {
         if(clientMapper.selectById(clientId)==null)
-            return Result.fail("No such client:"+clientId);
+            return Result.fail("不存在委托方:"+clientId);
         if(testingMapper.selectById(testingId)==null)
-            return Result.fail("No such testing:"+testingId);
+            return Result.fail("不存在监测方:"+testingId);
         else{
             for(Sci_project sci_project1 : list()){
-                if(sci_project1.getClient_id()==clientId)
-                    return Result.fail("Client "+ clientId + " is the unique client of project:"+sci_project1.getSci_project_id());
-                if(sci_project1.getTesting_id()==testingId){
-                    return Result.fail("Testing "+ testingId + " is the unique testing of project:"+sci_project1.getSci_project_id());
+                if(sci_project1.getSci_project_id()!=sciProjectId && sci_project1.getClient_id()==clientId)
+                    return Result.fail("委托方(ID)"+ clientId + " 是科研项目(ID)"+sci_project1.getSci_project_id()+" 的唯一委托方");
+                if(sci_project1.getSci_project_id()!=sciProjectId && sci_project1.getTesting_id()==testingId){
+                    return Result.fail("监测方(ID)"+ testingId + " 是科研项目(ID)"+sci_project1.getSci_project_id()+" 的唯一监测方");
                 }
             }
         }
@@ -233,12 +233,25 @@ public class Sci_projectServiceImpl extends ServiceImpl<sci_projectMapper, Sci_p
     }
 
     @Override
-    public Result removeSubProject(int sciProjectId, int subProjectId) {
+    public Result removeSubProject(int subProjectId) {
         QueryWrapper<project2sub> queryWrapper = new QueryWrapper<project2sub>()
-                .eq("sub_project_id", sciProjectId);
+                .eq("sub_project_id", subProjectId);
         project2subMapper.delete(queryWrapper);
         sub_projectMapper.deleteById(subProjectId);
         return Result.ok();
+    }
+
+    @Override
+    public Result queryProjectByDouble(String name, String content) {
+        QueryWrapper<Sci_project> queryWrapper = new QueryWrapper<Sci_project>()
+                .select("*")
+                .like("name",name)
+                .like("content",content);
+        List<Sci_project> ProjectList = list(queryWrapper);
+        if(ProjectList.isEmpty())
+            return Result.fail("No such project");
+        else
+            return Result.ok((List<?>) ProjectList,(long)ProjectList.size());
     }
 
 

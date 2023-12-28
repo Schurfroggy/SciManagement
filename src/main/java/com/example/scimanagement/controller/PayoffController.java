@@ -1,12 +1,17 @@
 package com.example.scimanagement.controller;
 
 import com.example.scimanagement.dto.Result;
+import com.example.scimanagement.entity.payoffs;
 import com.example.scimanagement.service.IPayoffService;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.sql.Date;
+import java.text.ParseException;
+import java.util.List;
+
+import static com.example.scimanagement.utils.DateUtils.formatString;
 
 @RestController
 @RequestMapping("/payoff")
@@ -16,7 +21,7 @@ public class PayoffController {
 
     @GetMapping("/getAll")
     public Result queryAllPayoff(){
-        return Result.ok(payoffService.list(),(long)payoffService.list().size());
+        return Result.ok((List<payoffs>)payoffService.list(),(long)payoffService.list().size());
     }
 
     @GetMapping("/{id}")
@@ -28,9 +33,9 @@ public class PayoffController {
     public Result addPayoff(@Param("id") int id,
                              @Param("name") String name,
                              @Param("type") String type,
-                             @Param("date") Date date,
-                             @Param("rank") int rank){
-        return payoffService.save(id,name,type,date,rank);
+                             @Param("date") String date,
+                             @Param("ranks") int ranks) throws ParseException {
+        return payoffService.save(id,name,type,formatString(date),ranks);
     }
 
     @DeleteMapping("/{id}")
@@ -43,9 +48,9 @@ public class PayoffController {
     public Result updatePayoff(@Param("id") int id,
                                @Param("name") String name,
                                @Param("type") String type,
-                               @Param("date") Date date,
-                               @Param("rank") int rank){
-        return payoffService.update(id,name,type,date,rank);
+                               @Param("date") String date,
+                               @Param("ranks") int ranks) throws ParseException {
+        return payoffService.update(id,name,type,formatString(date),ranks);
     }
 
     @GetMapping("/searchByName")

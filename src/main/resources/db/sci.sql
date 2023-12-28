@@ -390,10 +390,12 @@ drop table if exists user;
 create table user(
                      `user_id` int unsigned not null unique auto_increment comment '用户id',
                      PRIMARY KEY (user_id),
+                     `phone` varchar(20) comment '电话号码',
                      `name` varchar(20) comment '用户名',
-                     `phone_number` varchar(20) not null comment '手机号',
                      `password` varchar(20) not null comment '密码'
 );
+
+insert into user value(1,'13113631363','admin','admin');
 
 drop table if exists director;
 create table director(

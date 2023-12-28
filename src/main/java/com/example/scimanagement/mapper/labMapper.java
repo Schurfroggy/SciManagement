@@ -10,6 +10,5 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface labMapper extends BaseMapper<lab> {
-    LabDetail queryLabDetailById(@Param("id") int id);
 
 }

@@ -2,6 +2,7 @@ package com.example.scimanagement.dto;
 
 import com.example.scimanagement.entity.*;
 import com.example.scimanagement.entity.subentity.researcher2project;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -23,8 +24,10 @@ public class Sci_projectDetail {
 
     private double fund;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date start_date;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     private Date end_date;
     //details:
     private client client;

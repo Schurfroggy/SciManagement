@@ -21,9 +21,8 @@ public class LabController {
                          @Param("name") String name,
                          @Param("introduction") String introduction,
                          @Param("director_id") int director_id,
-                         @Param("secretary_id") int secretary_id,
-                         @RequestParam(value = "offices") List<Integer> offices){
-        return labService.save(lab_id,name,introduction,director_id,secretary_id,offices);
+                         @Param("secretary_id") int secretary_id){
+        return labService.save(lab_id,name,introduction,director_id,secretary_id);
     }
 
     @DeleteMapping("/{id}")
@@ -37,9 +36,8 @@ public class LabController {
                             @Param("name") String name,
                             @Param("introduction") String introduction,
                             @Param("director_id") int director_id,
-                            @Param("secretary_id") int secretary_id,
-                            @RequestParam(value = "offices") List<Integer> offices){
-        return labService.update(lab_id,name,introduction,director_id,secretary_id,offices);
+                            @Param("secretary_id") int secretary_id){
+        return labService.update(lab_id,name,introduction,director_id,secretary_id);
     }
 
     @GetMapping ("/{id}")
@@ -47,6 +45,7 @@ public class LabController {
         return labService.findById(id);
     }
 
+    @CrossOrigin
     @GetMapping("/searchByName")
     public Result queryLabByName(@Param("name") String name){
         return labService.queryLabByName(name);

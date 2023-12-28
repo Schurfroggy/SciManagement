@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.sql.Date;
+import java.text.ParseException;
+
+import static com.example.scimanagement.utils.DateUtils.formatString;
 
 @RestController
 @RequestMapping("/director")
@@ -28,9 +31,9 @@ public class DirectorController {
     public Result addDirector(@Param("director_id") int director_id,
                              @Param("lab_id") int lab_id,
                              @Param("researcher_id") int researcher_id,
-                             @Param("date") Date employ_date,
-                             @Param("tenure") String tenure){
-        return directorService.save(director_id,lab_id,researcher_id,employ_date,tenure);
+                             @Param("date") String employ_date,
+                             @Param("tenure") String tenure) throws ParseException {
+        return directorService.save(director_id,lab_id,researcher_id,formatString(employ_date),tenure);
     }
 
     @DeleteMapping("/{id}")
@@ -42,8 +45,8 @@ public class DirectorController {
     public Result updateDirector(@Param("director_id") int director_id,
                                 @Param("lab_id") int lab_id,
                                 @Param("researcher_id") int researcher_id,
-                                @Param("date") Date employ_date,
-                                @Param("tenure") String tenure){
-        return directorService.update(director_id,lab_id,researcher_id,employ_date,tenure);
+                                @Param("date") String employ_date,
+                                @Param("tenure") String tenure) throws ParseException {
+        return directorService.update(director_id,lab_id,researcher_id,formatString(employ_date),tenure);
     }
 }

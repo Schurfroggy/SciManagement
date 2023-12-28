@@ -117,9 +117,13 @@ public class SecretaryServiceImpl extends ServiceImpl<secretaryMapper, secretary
         secretary.setEmploy_date(employDate);
         secretary.setWork(work);
         updateById(secretary);
+        if(labMapper.selectById(labId)!=null){
+            lab labNew=labMapper.selectById(labId);
+            labNew.setSecretary_id(secretaryId);
+            labMapper.updateById(labNew);
+        }
         if(WarningMsg.isEmpty())
             return Result.ok();
         else return Result.ok(WarningMsg);
-        //TODO 触发lab更新
     }
 }

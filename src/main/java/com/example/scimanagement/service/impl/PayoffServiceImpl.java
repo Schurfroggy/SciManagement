@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.scimanagement.dto.PayoffDTO;
 import com.example.scimanagement.dto.Result;
+import com.example.scimanagement.entity.Sci_project;
 import com.example.scimanagement.entity.payoffs;
 import com.example.scimanagement.entity.subentity.project2payoffs;
 import com.example.scimanagement.mapper.payoffsMapper;
 import com.example.scimanagement.mapper.project2payoffsMapper;
+import com.example.scimanagement.mapper.sci_projectMapper;
 import com.example.scimanagement.service.IPayoffService;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
@@ -25,6 +27,9 @@ public class PayoffServiceImpl extends ServiceImpl<payoffsMapper, payoffs> imple
 
     @Resource
     private project2payoffsMapper project2payoffsMapper;
+    @Resource
+    private sci_projectMapper sci_projectMapper;
+
     @Override
     public Result findById(int payoffId) {
         payoffs payoff=getById(payoffId);
@@ -34,14 +39,15 @@ public class PayoffServiceImpl extends ServiceImpl<payoffsMapper, payoffs> imple
         payoffDTO.setPayoff_id(payoff.getPayoff_id());
         payoffDTO.setDate(payoff.getDate());
         payoffDTO.setName(payoff.getName());
-        payoffDTO.setRank(payoff.getRank());
+        payoffDTO.setRanks(payoff.getRanks());
         payoffDTO.setType(payoff.getType());
         payoffDTO.setSci_project_id(QueryIdClass(project2payoffsMapper,payoffId, project2payoffs.class,"payoff_id").getSci_project_id());
+        payoffDTO.setSci_project(QueryIdClass(sci_projectMapper,payoffDTO.getSci_project_id(), Sci_project.class,"sci_project_id"));
         return Result.ok(payoffDTO);
     }
 
     @Override
-    public Result save(int id, String name, String type, Date date, int rank) {
+    public Result save(int id, String name, String type, Date date, int ranks) {
         payoffs payoff=new payoffs();
         if(getById(id)!=null)
             payoff.setPayoff_id(null);
@@ -49,18 +55,18 @@ public class PayoffServiceImpl extends ServiceImpl<payoffsMapper, payoffs> imple
         payoff.setName(name);
         payoff.setType(type);
         payoff.setDate(date);
-        payoff.setRank(rank);
+        payoff.setRanks(ranks);
         save(payoff);
         return Result.ok();
     }
 
     @Override
-    public Result update(int id, String name, String type, Date date, int rank) {
+    public Result update(int id, String name, String type, Date date, int ranks) {
         payoffs payoff=getById(id);
         payoff.setName(name);
         payoff.setType(type);
         payoff.setDate(date);
-        payoff.setRank(rank);
+        payoff.setRanks(ranks);
         updateById(payoff);
         return Result.ok();
     }

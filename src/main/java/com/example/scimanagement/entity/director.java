@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.sql.Date;
@@ -20,6 +21,7 @@ public class director {
     @TableField("lab_id")
     private Integer lab_id;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
     @TableField("date")
     private Date employ_date;
 

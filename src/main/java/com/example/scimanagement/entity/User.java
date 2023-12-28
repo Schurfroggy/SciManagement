@@ -18,7 +18,7 @@ public class User implements Serializable {
     @TableField
     private String name;
 
-    @TableField
+    @TableField(value="phone")
     private String phone_number;
 
     @TableField

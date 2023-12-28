@@ -1,10 +1,9 @@
 package com.example.scimanagement.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
 
@@ -26,7 +25,8 @@ public class secretary {
     @TableField("age")
     private Integer age;
 
-    @TableField("employ_date")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+8")
+    @TableField(value="employ_date")
     private Date employ_date;
 
     @TableField("work")

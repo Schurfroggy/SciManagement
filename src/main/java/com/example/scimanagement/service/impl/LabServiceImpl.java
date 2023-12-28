@@ -86,7 +86,7 @@ public class LabServiceImpl extends ServiceImpl<labMapper, lab> implements ILabS
     }
 
     @Override
-    public Result update(int id, String name, String introduction, int directorId, int secretaryId,List<Integer> officeIdList) {
+    public Result update(int id, String name, String introduction, int directorId, int secretaryId) {
         StringBuilder WarningMsg = new StringBuilder();
         lab labDTO = getById(id);
         labDTO.setName(name);
@@ -141,7 +141,7 @@ public class LabServiceImpl extends ServiceImpl<labMapper, lab> implements ILabS
             secretaryDTO.setLab_id(id);
             secretaryMapper.updateById(secretaryDTO);
         }
-        //3.更新office
+        /*//3.更新office
         QueryWrapper<lab2office> queryWrapper=new QueryWrapper<lab2office>()
                 .eq("lab_id",id);
         lab2officeMapper.delete(queryWrapper);
@@ -159,7 +159,7 @@ public class LabServiceImpl extends ServiceImpl<labMapper, lab> implements ILabS
         }
         if(errorflag){
             WarningMsg.append("Element(s) of office list is invalid. Filtered. ");
-        }
+        }*/
         updateById(labDTO);
         if(WarningMsg.length()>0)
             return Result.ok(WarningMsg.toString());
@@ -167,7 +167,7 @@ public class LabServiceImpl extends ServiceImpl<labMapper, lab> implements ILabS
     }
 
     @Override
-    public Result save(int labId, String name, String introduction, int directorId, int secretaryId, List<Integer> officeIdList) {
+    public Result save(int labId, String name, String introduction, int directorId, int secretaryId) {
         StringBuilder WarningMsg = new StringBuilder();
         lab labDTO = new lab();
         labDTO.setName(name);
@@ -184,7 +184,7 @@ public class LabServiceImpl extends ServiceImpl<labMapper, lab> implements ILabS
         save(labDTO);
         lab labDTO_ = queryLabByNameOne(name);
         //直接调用update触发director和secretary更新
-        Result result=update(labDTO_.getLab_id(),name,introduction,directorId,secretaryId,officeIdList);
+        Result result=update(labDTO_.getLab_id(),name,introduction,directorId,secretaryId);
         WarningMsg.append(result.getMsg());
         return Result.ok(WarningMsg.toString());
     }

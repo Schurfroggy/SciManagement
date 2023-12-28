@@ -49,7 +49,7 @@ public class DirectorServiceImpl extends ServiceImpl<directorMapper, director> i
             WarningMsg.append("No such lab.Transferred to null.");
             director.setLab_id(null);
         }
-        if(labMapper.selectById(lab_id).getDirector_id()!=null){
+        if(director.getLab_id()!=null && labMapper.selectById(lab_id).getDirector_id()!=null){
             WarningMsg.append("Lab has a director.Transferred to null.");
             director.setLab_id(null);
         }
